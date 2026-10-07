@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Beispielwohnung prüfen lassen | VertriebsImmo.de</title>
+<style>
+@font-face{font-family:"Open Sans";font-weight:400;font-display:swap;src:url(fonts/open-sans-400.woff2) format("woff2")}
+@font-face{font-family:"Open Sans";font-weight:600;font-display:swap;src:url(fonts/open-sans-600.woff2) format("woff2")}
+@font-face{font-family:"Open Sans";font-weight:700;font-display:swap;src:url(fonts/open-sans-700.woff2) format("woff2")}
+@font-face{font-family:"Open Sans";font-weight:800;font-display:swap;src:url(fonts/open-sans-800.woff2) format("woff2")}
+:root{
+  --navy:#030C33; --text:#001333; --gold:#D4AF37; --gold-hell:#F7EFD6; --blau:#3B5998;
+  --grund:#F5F7FB; --flaeche:#FFFFFF; --linie:#DDE3EE; --grau:#4B5563; --fehler:#B91C1C;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--grund);color:var(--text);font:400 16px/1.55 "Open Sans",Arial,sans-serif}
+a{color:var(--blau)}
+.kopf{background:var(--navy);color:#fff;padding:28px 16px 34px;border-bottom:3px solid var(--gold)}
+.kopf-innen,.inhalt{max-width:760px;margin:0 auto}
+.marke{font-weight:800;font-size:20px;letter-spacing:-.01em;margin:0 0 26px}
+.marke span{color:var(--gold)}
+h1{font-size:clamp(28px,5vw,40px);line-height:1.15;font-weight:800;margin:0 0 12px;letter-spacing:-.015em;max-width:20ch}
+.kopf p{margin:0;max-width:58ch;color:#D7DCEA}
+.inhalt{padding:28px 16px 64px}
+fieldset{border:0;margin:0 0 22px;padding:24px 22px 8px;background:var(--flaeche);border-radius:10px;border:1px solid var(--linie)}
+legend{float:left;width:100%;padding:0;margin:0 0 4px;font-size:20px;font-weight:700;color:var(--navy);display:flex;gap:12px;align-items:baseline}
+legend .nr{display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--gold);font-size:15px;font-weight:800;align-items:center;justify-content:center;flex:none;transform:translateY(4px)}
+.erkl{clear:both;margin:0 0 18px;color:var(--grau);font-size:15px;max-width:62ch}
+.reihe{display:grid;gap:0 16px;grid-template-columns:1fr}
+@media(min-width:620px){.r2{grid-template-columns:1fr 1fr}.r3{grid-template-columns:1fr 1fr 1fr}.r-plz{grid-template-columns:2fr 1fr 2fr}}
+.feld{margin:0 0 18px}
+label,.frage{display:block;font-weight:600;font-size:15px;margin:0 0 6px;color:var(--navy)}
+.opt{font-weight:400;color:var(--grau)}
+.hilfe{display:block;font-size:13px;color:var(--grau);margin-top:5px}
+input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{
+  width:100%;font:inherit;color:var(--text);background:#fff;border:1.5px solid var(--linie);border-radius:8px;padding:11px 12px;min-height:48px}
+textarea{min-height:96px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blau);box-shadow:0 0 0 3px rgba(59,89,152,.18)}
+.einheit{position:relative}
+.einheit input{padding-right:52px}
+.einheit b{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-weight:600;color:var(--grau);font-size:14px;pointer-events:none}
+.wahl{display:flex;flex-wrap:wrap;gap:8px}
+.wahl label{margin:0;font-weight:400;font-size:15px;color:var(--text);cursor:pointer}
+.wahl input{position:absolute;opacity:0;width:1px;height:1px}
+.wahl span{display:inline-block;padding:9px 14px;border:1.5px solid var(--linie);border-radius:999px;background:#fff;line-height:1.3}
+.wahl input:checked+span{background:var(--navy);border-color:var(--navy);color:#fff}
+.wahl input:focus-visible+span{box-shadow:0 0 0 3px rgba(59,89,152,.35)}
+.preis{background:var(--gold-hell);border-left:3px solid var(--gold);padding:12px 14px;border-radius:6px;font-size:14px;margin:-4px 0 18px;color:var(--text)}
+.einwilligung{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px;color:var(--grau)}
+.einwilligung input{width:20px;height:20px;margin:2px 0 0;flex:none;accent-color:var(--navy)}
+button{font:inherit;font-weight:700;font-size:17px;background:var(--gold);color:var(--navy);border:0;border-radius:8px;padding:15px 26px;cursor:pointer;min-height:52px;width:100%}
+@media(min-width:620px){button{width:auto}}
+button:hover{background:#C9A42E}
+button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
+.fehler{color:var(--fehler);font-size:14px;margin:10px 0 0;display:none}
+.honig{position:absolute;left:-5000px}
+.fuss{font-size:12.5px;color:var(--grau);border-top:1px solid var(--linie);margin-top:40px;padding-top:18px}
+.fuss p{margin:0 0 8px;max-width:70ch}
+@media (prefers-reduced-motion:no-preference){button{transition:background .15s}}
+</style>
+</head>
+<body>
+<header class="kopf">
+  <div class="kopf-innen">
+    <p class="marke"><span>Vertriebs</span>Immo.de</p>
+    <h1>Lohnt sich Ihr Projekt für unseren Vertrieb?</h1>
+    <p>Tragen Sie die Daten einer typischen Wohnung ein. Wir rechnen den Verkaufspreis für unsere Vertriebspartner und melden uns mit einer ersten Einschätzung. Das dauert etwa fünf Minuten.</p>
+  </div>
+</header>
+
+<main class="inhalt">
+<form id="f" action="https://formsubmit.co/smolinskyy@vertriebsimmo.de" method="POST" novalidate>
+  <input type="hidden" name="_subject" id="betreff" value="Beispieleinheit">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_next" id="weiter" value="">
+  <input type="text" name="_honey" class="honig" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <input type="hidden" name="ref" id="ref">
+  <input type="hidden" name="foerderung" id="foerderung">
+
+  <fieldset>
+    <legend><span class="nr">1</span>Sie und Ihr Projekt</legend>
+    <p class="erkl">Damit wir Ihre Angaben Ihrer Anfrage zuordnen können.</p>
+    <div class="reihe r2">
+      <div class="feld"><label for="firma">Firma</label><input type="text" id="firma" name="firma" required autocomplete="organization"></div>
+      <div class="feld"><label for="ansprechpartner">Ihr Name</label><input type="text" id="ansprechpartner" name="ansprechpartner" required autocomplete="name"></div>
+    </div>
+    <div class="reihe r2">
+      <div class="feld"><label for="email">E-Mail</label><input type="email" id="email" name="email" required autocomplete="email"></div>
+      <div class="feld"><label for="telefon">Telefon <span class="opt">(optional)</span></label><input type="tel" id="telefon" name="telefon" autocomplete="tel"></div>
+    </div>
+    <div class="feld"><label for="projekt">Projektname <span class="opt">(optional)</span></label><input type="text" id="projekt" name="projekt" placeholder="z. B. Wohnen am Stadtpark"></div>
+    <div class="feld"><label for="strasse">Straße und Hausnummer</label><input type="text" id="strasse" name="strasse" required autocomplete="address-line1"></div>
+    <div class="reihe r-plz">
+      <div class="feld"><label for="plz">PLZ</label><input type="text" id="plz" name="plz" inputmode="numeric" maxlength="5" required autocomplete="postal-code"></div>
+      <div class="feld" style="grid-column:span 2"><label for="ort">Ort</label><input type="text" id="ort" name="ort" required autocomplete="address-level2"></div>
+    </div>
+    <div class="feld">
+      <span class="frage" id="art-l">Art des Objekts</span>
+      <div class="wahl" role="radiogroup" aria-labelledby="art-l">
+        <label><input type="radio" name="objektart" value="bestand" required><span>Bestand</span></label>
+        <label><input type="radio" name="objektart" value="sanierung"><span>Sanierung</span></label>
+        <label><input type="radio" name="objektart" value="neubau"><span>Neubau</span></label>
+        <label><input type="radio" name="objektart" value="denkmal"><span>Denkmal</span></label>
+      </div>
+    </div>
+    <div class="reihe r2">
+      <div class="feld"><label for="einheiten_gesamt">Wohnungen im Projekt</label><input type="number" id="einheiten_gesamt" name="einheiten_gesamt" min="1" inputmode="numeric" required></div>
+      <div class="feld"><label for="einheiten_vertrieb">Davon für unseren Vertrieb</label><input type="number" id="einheiten_vertrieb" name="einheiten_vertrieb" min="1" inputmode="numeric"></div>
+    </div>
+    <div class="reihe r2">
+      <div class="feld"><label for="baujahr">Baujahr bzw. Fertigstellung</label><input type="number" id="baujahr" name="baujahr" min="1800" max="2035" inputmode="numeric" required></div>
+      <div class="feld"><label for="sanierungsjahr">Letzte Sanierung <span class="opt">(optional)</span></label><input type="number" id="sanierungsjahr" name="sanierungsjahr" min="1900" max="2035" inputmode="numeric"></div>
+    </div>
+    <div class="feld"><label for="start">Ab wann kann der Vertrieb starten?</label>
+      <select id="start" name="start"><option value="sofort">Sofort</option><option value="1-3 Monate">In 1 bis 3 Monaten</option><option value="spaeter">Später als 3 Monate</option></select>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><span class="nr">2</span>Die Beispielwohnung</legend>
+    <p class="erkl">Am besten eine Wohnung, die typisch für das Projekt ist, bei Größe und Preis.</p>
+    <div class="reihe r3">
+      <div class="feld"><label for="we">Wohnungsnummer</label><input type="text" id="we" name="we" placeholder="z. B. WE 4"></div>
+      <div class="feld"><label for="etage">Lage im Haus</label><input type="text" id="etage" name="etage" placeholder="z. B. 2. OG links"></div>
+      <div class="feld"><label for="zimmer">Zimmer</label><input type="number" id="zimmer" name="zimmer" step="0.5" min="1" inputmode="decimal" required></div>
+    </div>
+    <div class="reihe r2">
+      <div class="feld"><label for="wohnflaeche">Wohnfläche</label><div class="einheit"><input type="number" id="wohnflaeche" name="wohnflaeche" step="0.01" min="10" inputmode="decimal" required><b>m²</b></div></div>
+      <div class="feld"><label for="abgabepreis">Ihr Abgabepreis</label><div class="einheit"><input type="number" id="abgabepreis" name="abgabepreis" step="100" min="10000" inputmode="numeric" required><b>€</b></div></div>
+    </div>
+    <p class="preis">Gemeint ist der Betrag, den Sie für die Wohnung erhalten möchten, ohne Vertriebsprovision. Unsere Plattformgebühr und die Provision rechnen wir obendrauf.</p>
+    <div class="feld">
+      <span class="frage" id="verm-l">Ist die Wohnung vermietet?</span>
+      <div class="wahl" role="radiogroup" aria-labelledby="verm-l">
+        <label><input type="radio" name="vermietet" value="ja" required><span>Ja, vermietet</span></label>
+        <label><input type="radio" name="vermietet" value="nein"><span>Nein, frei</span></label>
+      </div>
+    </div>
+    <div class="reihe r2">
+      <div class="feld"><label for="kaltmiete">Nettokaltmiete im Monat</label><div class="einheit"><input type="number" id="kaltmiete" name="kaltmiete" step="0.01" min="0" inputmode="decimal" required><b>€</b></div><span class="hilfe">Bei freier Wohnung die erzielbare Miete.</span></div>
+      <div class="feld"><label for="stellplatz_preis">Stellplatz <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="stellplatz_preis" name="stellplatz_preis" step="100" min="0" inputmode="numeric"><b>€</b></div><span class="hilfe">Abgabepreis, falls separat.</span></div>
+    </div>
+    <div class="reihe r2">
+      <div class="feld"><label for="hausgeld">Hausgeld im Monat <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="hausgeld" name="hausgeld" step="0.01" min="0" inputmode="decimal"><b>€</b></div></div>
+      <div class="feld"><label for="hausgeld_nicht_umlagefaehig">davon nicht umlagefähig <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="hausgeld_nicht_umlagefaehig" name="hausgeld_nicht_umlagefaehig" step="0.01" min="0" inputmode="decimal"><b>€</b></div></div>
+    </div>
+    <div class="feld"><label for="energieklasse">Energieeffizienzklasse <span class="opt">(optional)</span></label>
+      <select id="energieklasse" name="energieklasse"><option value="">Weiß ich nicht</option><option>A+</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><span class="nr">3</span>Steuer, Förderung und Extras</legend>
+    <p class="erkl">Alles ankreuzen, was für Käufer gilt. Das sind oft die stärksten Verkaufsargumente.</p>
+    <div class="feld">
+      <div class="wahl" id="foerder">
+        <label><input type="checkbox" value="rnd"><span>Restnutzungsdauer-Gutachten (erhöhte AfA)</span></label>
+        <label><input type="checkbox" value="afa_degressiv"><span>Degressive AfA 5 % (Neubau)</span></label>
+        <label><input type="checkbox" value="sonder_afa_7b"><span>Sonder-AfA nach § 7b</span></label>
+        <label><input type="checkbox" value="denkmal_7i"><span>Denkmal-AfA nach § 7i</span></label>
+        <label><input type="checkbox" value="sanierungsgebiet_7h"><span>Sanierungsgebiet nach § 7h</span></label>
+        <label><input type="checkbox" value="kfw"><span>KfW-Förderkredit</span></label>
+        <label><input type="checkbox" value="qng"><span>Effizienzhaus 40 / QNG</span></label>
+        <label><input type="checkbox" value="mietgarantie"><span>Mietgarantie</span></label>
+        <label><input type="checkbox" value="erstvermietung"><span>Erstvermietungsgarantie</span></label>
+        <label><input type="checkbox" value="moebliert"><span>Möbliert</span></label>
+        <label><input type="checkbox" value="wg"><span>WG-Konzept</span></label>
+        <label><input type="checkbox" value="sev"><span>Mietverwaltung möglich</span></label>
+      </div>
+    </div>
+    <div class="feld"><label for="gebaeudeanteil">Gebäudeanteil am Kaufpreis <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="gebaeudeanteil" name="gebaeudeanteil" min="0" max="100" inputmode="numeric"><b>%</b></div><span class="hilfe">Falls eine Kaufpreisaufteilung vorliegt.</span></div>
+    <div class="feld"><label for="bemerkung">Was sollten wir noch wissen? <span class="opt">(optional)</span></label><textarea id="bemerkung" name="bemerkung" placeholder="z. B. Lage, Zustand, Besonderheiten, Preisspanne der übrigen Wohnungen"></textarea></div>
+  </fieldset>
+
+  <div class="feld">
+    <label class="einwilligung"><input type="checkbox" id="ok" required><span>Ich bin einverstanden, dass die Smol Capital GmbH meine Angaben zur Prüfung der Anfrage verarbeitet und mich dazu kontaktiert. Details unten unter Datenschutz.</span></label>
+  </div>
+  <button type="submit">Wohnung prüfen lassen</button>
+  <p class="fehler" id="fehler" role="alert">Bitte füllen Sie die markierten Pflichtfelder aus.</p>
+</form>
+
+<footer class="fuss">
+  <p><strong>Datenschutz:</strong> Ihre Angaben werden über den Dienst FormSubmit (formsubmit.co) per E-Mail an uns übermittelt und nur zur Bearbeitung Ihrer Anfrage verwendet. Verantwortlich ist die Smol Capital GmbH. Sie können der Verarbeitung jederzeit per Mail an smolinskyy@vertriebsimmo.de widersprechen.</p>
+  <p><strong>Anbieter:</strong> Smol Capital GmbH (VertriebsImmo.de), Anna-Birle-Straße 3a, 55252 Mainz-Kastel. Geschäftsführer Oleh Smolinskyy. Amtsgericht Wiesbaden HRB 35877. Telefon +49 179 5273671, smolinskyy@vertriebsimmo.de</p>
+</footer>
+</main>
+
+<script>
+(function(){
+  var f=document.getElementById('f');
+  var ref=new URLSearchParams(location.search).get('ref')||'';
+  if(/^[A-Za-z0-9-]{1,30}$/.test(ref)) document.getElementById('ref').value=ref;
+  document.getElementById('weiter').value=new URL('danke.html',location.href).href;
+  f.addEventListener('submit',function(ev){
+    var fehlt=false;
+    f.querySelectorAll('[required]').forEach(function(el){
+      var leer = el.type==='radio' ? !f.querySelector('input[name="'+el.name+'"]:checked')
+               : el.type==='checkbox' ? !el.checked : !el.value.trim();
+      var ziel = el.type==='radio' ? el.closest('.wahl') : el;
+      if(leer){fehlt=true; if(ziel.style) ziel.style.outline='2px solid #B91C1C'; ziel.style.outlineOffset='3px';}
+      else if(ziel.style){ziel.style.outline='';}
+    });
+    if(fehlt){ev.preventDefault();document.getElementById('fehler').style.display='block';return;}
+    var werte=[].map.call(document.querySelectorAll('#foerder input:checked'),function(c){return c.value});
+    document.getElementById('foerderung').value=werte.join(', ');
+    var firma=document.getElementById('firma').value.trim();
+    document.getElementById('betreff').value='Beispieleinheit: '+firma+(ref?' ('+ref+')':'');
+  });
+})();
+</script>
+</body>
+</html>
