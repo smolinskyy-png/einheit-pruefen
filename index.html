@@ -80,6 +80,7 @@ button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
   <input type="text" name="_honey" class="honig" tabindex="-1" autocomplete="off" aria-hidden="true">
   <input type="hidden" name="ref" id="ref">
   <input type="hidden" name="foerderung" id="foerderung">
+  <input type="hidden" name="ausstattung" id="ausstattung">
 
   <fieldset>
     <legend><span class="nr">1</span>Sie und Ihr Projekt</legend>
@@ -140,6 +141,19 @@ button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
         <label><input type="radio" name="vermietet" value="nein"><span>Nein, frei</span></label>
       </div>
     </div>
+    <div class="feld">
+      <span class="frage" id="konzept-l">Wohnkonzept</span>
+      <div class="wahl" role="radiogroup" aria-labelledby="konzept-l">
+        <label><input type="radio" name="wohnkonzept" value="klassisch" required><span>Klassische Vermietung</span></label>
+        <label><input type="radio" name="wohnkonzept" value="wg"><span>WG-Konzept</span></label>
+        <label><input type="radio" name="wohnkonzept" value="moebliert"><span>Möbliert auf Zeit</span></label>
+        <label><input type="radio" name="wohnkonzept" value="studenten"><span>Studenten / Mikroapartment</span></label>
+        <label><input type="radio" name="wohnkonzept" value="senioren"><span>Seniorenwohnen</span></label>
+        <label><input type="radio" name="wohnkonzept" value="ferien"><span>Ferienwohnung</span></label>
+        <label><input type="radio" name="wohnkonzept" value="sonstiges"><span>Sonstiges</span></label>
+      </div>
+      <span class="hilfe">Bei WG-Konzept bitte die Gesamtmiete aller Zimmer eintragen.</span>
+    </div>
     <div class="reihe r2">
       <div class="feld"><label for="kaltmiete">Nettokaltmiete im Monat</label><div class="einheit"><input type="number" id="kaltmiete" name="kaltmiete" step="0.01" min="0" inputmode="decimal" required><b>€</b></div><span class="hilfe">Bei freier Wohnung die erzielbare Miete.</span></div>
       <div class="feld"><label for="stellplatz_preis">Stellplatz <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="stellplatz_preis" name="stellplatz_preis" step="100" min="0" inputmode="numeric"><b>€</b></div><span class="hilfe">Abgabepreis, falls separat.</span></div>
@@ -148,31 +162,71 @@ button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
       <div class="feld"><label for="hausgeld">Hausgeld im Monat <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="hausgeld" name="hausgeld" step="0.01" min="0" inputmode="decimal"><b>€</b></div></div>
       <div class="feld"><label for="hausgeld_nicht_umlagefaehig">davon nicht umlagefähig <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="hausgeld_nicht_umlagefaehig" name="hausgeld_nicht_umlagefaehig" step="0.01" min="0" inputmode="decimal"><b>€</b></div></div>
     </div>
-    <div class="feld"><label for="energieklasse">Energieeffizienzklasse <span class="opt">(optional)</span></label>
-      <select id="energieklasse" name="energieklasse"><option value="">Weiß ich nicht</option><option>A+</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+    <div class="reihe r3">
+      <div class="feld"><label for="heizung">Heizungsart</label>
+        <select id="heizung" name="heizung" required><option value="">Bitte wählen</option><option value="gas">Gas</option><option value="oel">Öl</option><option value="fernwaerme">Fernwärme</option><option value="waermepumpe">Wärmepumpe</option><option value="pellets">Pellets / Holz</option><option value="elektro">Elektro / Nachtspeicher</option><option value="sonstige">Sonstige</option></select>
+      </div>
+      <div class="feld"><label for="energieklasse">Energieklasse</label>
+        <select id="energieklasse" name="energieklasse"><option value="">Weiß ich nicht</option><option>A+</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      </div>
+      <div class="feld"><label for="energiekennwert">Energiekennwert <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="energiekennwert" name="energiekennwert" step="0.1" min="0" inputmode="decimal"><b style="font-size:12px">kWh/m²a</b></div></div>
+    </div>
+    <div class="feld">
+      <span class="frage">Ausstattung</span>
+      <div class="wahl" id="ausst">
+        <label><input type="checkbox" value="balkon"><span>Balkon / Terrasse</span></label>
+        <label><input type="checkbox" value="kueche"><span>Einbauküche</span></label>
+        <label><input type="checkbox" value="keller"><span>Keller</span></label>
+        <label><input type="checkbox" value="aufzug"><span>Aufzug</span></label>
+        <label><input type="checkbox" value="stellplatz"><span>Stellplatz / Garage</span></label>
+        <label><input type="checkbox" value="garten"><span>Garten</span></label>
+      </div>
+    </div>
+    <div class="feld"><label for="zustand">Zustand der Wohnung</label>
+      <select id="zustand" name="zustand"><option value="">Bitte wählen</option><option>Neubau / Erstbezug</option><option>Kernsaniert</option><option>Renoviert</option><option>Gepflegt</option><option>Renovierungsbedürftig</option></select>
+    </div>
+    <div class="reihe r2">
+      <div class="feld"><label for="ruecklage">Erhaltungsrücklage des Hauses <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="ruecklage" name="ruecklage" step="100" min="0" inputmode="numeric"><b>€</b></div></div>
+      <div class="feld"><label for="sonderumlage">Sonderumlage geplant?</label>
+        <select id="sonderumlage" name="sonderumlage"><option value="">Nein bzw. nicht bekannt</option><option>Ja, beschlossen</option><option>Ja, in Planung</option></select>
+      </div>
     </div>
   </fieldset>
 
   <fieldset>
-    <legend><span class="nr">3</span>Steuer, Förderung und Extras</legend>
-    <p class="erkl">Alles ankreuzen, was für Käufer gilt. Das sind oft die stärksten Verkaufsargumente.</p>
+    <legend><span class="nr">3</span>Abschreibung, Förderung und Garantien</legend>
+    <p class="erkl">Für Kapitalanleger oft das stärkste Verkaufsargument. Was Sie nicht wissen, lassen Sie leer, dann rechnen wir mit Standardwerten.</p>
+    <div class="feld"><label for="afa_art">Abschreibung (AfA)</label>
+      <select id="afa_art" name="afa_art">
+        <option value="linear">Linear nach Baujahr (2 %, 2,5 % oder 3 %)</option>
+        <option value="rnd">Verkürzte Restnutzungsdauer per Gutachten</option>
+        <option value="degressiv">Degressive AfA 5 % (Neubau)</option>
+        <option value="denkmal_7i">Denkmal-AfA nach § 7i</option>
+        <option value="sanierung_7h">Sanierungsgebiet nach § 7h</option>
+        <option value="unbekannt">Weiß ich nicht</option>
+      </select>
+    </div>
+    <div class="reihe r3">
+      <div class="feld"><label for="afa_satz">AfA-Satz <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="afa_satz" name="afa_satz" step="0.01" min="0" max="20" inputmode="decimal"><b>%</b></div><span class="hilfe">z. B. 4,35 bei Gutachten</span></div>
+      <div class="feld"><label for="rnd_jahre">Restnutzungsdauer <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="rnd_jahre" name="rnd_jahre" min="1" max="80" inputmode="numeric"><b>Jahre</b></div></div>
+      <div class="feld"><label for="gebaeudeanteil">Gebäudeanteil <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="gebaeudeanteil" name="gebaeudeanteil" min="0" max="100" inputmode="numeric"><b>%</b></div><span class="hilfe">aus der Kaufpreisaufteilung</span></div>
+    </div>
     <div class="feld">
+      <span class="frage">Förderung und Extras</span>
       <div class="wahl" id="foerder">
-        <label><input type="checkbox" value="rnd"><span>Restnutzungsdauer-Gutachten (erhöhte AfA)</span></label>
-        <label><input type="checkbox" value="afa_degressiv"><span>Degressive AfA 5 % (Neubau)</span></label>
         <label><input type="checkbox" value="sonder_afa_7b"><span>Sonder-AfA nach § 7b</span></label>
-        <label><input type="checkbox" value="denkmal_7i"><span>Denkmal-AfA nach § 7i</span></label>
-        <label><input type="checkbox" value="sanierungsgebiet_7h"><span>Sanierungsgebiet nach § 7h</span></label>
         <label><input type="checkbox" value="kfw"><span>KfW-Förderkredit</span></label>
         <label><input type="checkbox" value="qng"><span>Effizienzhaus 40 / QNG</span></label>
-        <label><input type="checkbox" value="mietgarantie"><span>Mietgarantie</span></label>
         <label><input type="checkbox" value="erstvermietung"><span>Erstvermietungsgarantie</span></label>
+        <label><input type="checkbox" value="mietgarantie"><span>Mietgarantie</span></label>
         <label><input type="checkbox" value="moebliert"><span>Möbliert</span></label>
-        <label><input type="checkbox" value="wg"><span>WG-Konzept</span></label>
         <label><input type="checkbox" value="sev"><span>Mietverwaltung möglich</span></label>
       </div>
     </div>
-    <div class="feld"><label for="gebaeudeanteil">Gebäudeanteil am Kaufpreis <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="gebaeudeanteil" name="gebaeudeanteil" min="0" max="100" inputmode="numeric"><b>%</b></div><span class="hilfe">Falls eine Kaufpreisaufteilung vorliegt.</span></div>
+    <div class="reihe r2">
+      <div class="feld"><label for="erstvermietung_monate">Laufzeit Erstvermietungsgarantie <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="erstvermietung_monate" name="erstvermietung_monate" min="0" inputmode="numeric"><b>Monate</b></div></div>
+      <div class="feld"><label for="mietgarantie_monate">Laufzeit Mietgarantie <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="mietgarantie_monate" name="mietgarantie_monate" min="0" inputmode="numeric"><b>Monate</b></div></div>
+    </div>
     <div class="feld"><label for="bemerkung">Was sollten wir noch wissen? <span class="opt">(optional)</span></label><textarea id="bemerkung" name="bemerkung" placeholder="z. B. Lage, Zustand, Besonderheiten, Preisspanne der übrigen Wohnungen"></textarea></div>
   </fieldset>
 
@@ -207,6 +261,7 @@ button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
     if(fehlt){ev.preventDefault();document.getElementById('fehler').style.display='block';return;}
     var werte=[].map.call(document.querySelectorAll('#foerder input:checked'),function(c){return c.value});
     document.getElementById('foerderung').value=werte.join(', ');
+    document.getElementById('ausstattung').value=[].map.call(document.querySelectorAll('#ausst input:checked'),function(c){return c.value}).join(', ');
     var firma=document.getElementById('firma').value.trim();
     document.getElementById('betreff').value='Beispieleinheit: '+firma+(ref?' ('+ref+')':'');
   });
