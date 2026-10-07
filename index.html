@@ -67,7 +67,7 @@ button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
   <div class="kopf-innen">
     <p class="marke"><span>Vertriebs</span>Immo.de</p>
     <h1>Lohnt sich Ihr Projekt für unseren Vertrieb?</h1>
-    <p>Tragen Sie die Daten einer typischen Wohnung ein. Wir rechnen den Verkaufspreis für unsere Vertriebspartner und melden uns mit einer ersten Einschätzung. Das dauert etwa fünf Minuten.</p>
+    <p>Tragen Sie die Daten einer typischen Wohnung ein. Wir rechnen den Verkaufspreis für unsere Vertriebspartner und melden uns mit einer ersten Einschätzung. Das dauert etwa zehn Minuten.</p>
   </div>
 </header>
 
@@ -83,7 +83,7 @@ button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
   <input type="hidden" name="ausstattung" id="ausstattung">
 
   <fieldset>
-    <legend><span class="nr">1</span>Sie und Ihr Projekt</legend>
+    <legend><span class="nr">1</span>Ihre Kontaktdaten</legend>
     <p class="erkl">Damit wir Ihre Angaben Ihrer Anfrage zuordnen können.</p>
     <div class="reihe r2">
       <div class="feld"><label for="firma">Firma</label><input type="text" id="firma" name="firma" required autocomplete="organization"></div>
@@ -93,6 +93,11 @@ button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
       <div class="feld"><label for="email">E-Mail</label><input type="email" id="email" name="email" required autocomplete="email"></div>
       <div class="feld"><label for="telefon">Telefon <span class="opt">(optional)</span></label><input type="tel" id="telefon" name="telefon" autocomplete="tel"></div>
     </div>
+  </fieldset>
+
+  <fieldset>
+    <legend><span class="nr">2</span>Das Projekt</legend>
+    <p class="erkl">Die Eckdaten des ganzen Projekts. Wenn es mehrere Häuser oder Adressen sind, nennen Sie die Hauptadresse und den Rest unten im Beschreibungsfeld.</p>
     <div class="feld"><label for="projekt">Projektname <span class="opt">(optional)</span></label><input type="text" id="projekt" name="projekt" placeholder="z. B. Wohnen am Stadtpark"></div>
     <div class="feld"><label for="strasse">Straße und Hausnummer</label><input type="text" id="strasse" name="strasse" required autocomplete="address-line1"></div>
     <div class="reihe r-plz">
@@ -100,29 +105,67 @@ button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
       <div class="feld" style="grid-column:span 2"><label for="ort">Ort</label><input type="text" id="ort" name="ort" required autocomplete="address-level2"></div>
     </div>
     <div class="feld">
-      <span class="frage" id="art-l">Art des Objekts</span>
+      <span class="frage" id="typ-l">Um was für ein Projekt handelt es sich?</span>
+      <div class="wahl" role="radiogroup" aria-labelledby="typ-l">
+        <label><input type="radio" name="projekttyp" value="einzelwohnungen" required><span>Einzelne Eigentumswohnungen</span></label>
+        <label><input type="radio" name="projekttyp" value="paket"><span>Wohnungspaket</span></label>
+        <label><input type="radio" name="projekttyp" value="aufteilung"><span>Mehrfamilienhaus zur Aufteilung</span></label>
+        <label><input type="radio" name="projekttyp" value="neubauprojekt"><span>Neubauprojekt</span></label>
+        <label><input type="radio" name="projekttyp" value="mfh_ganz"><span>Ganzes Mehrfamilienhaus</span></label>
+        <label><input type="radio" name="projekttyp" value="gemischt"><span>Wohnen und Gewerbe</span></label>
+      </div>
+    </div>
+    <div class="feld">
+      <span class="frage" id="art-l">Zustand des Gebäudes</span>
       <div class="wahl" role="radiogroup" aria-labelledby="art-l">
         <label><input type="radio" name="objektart" value="bestand" required><span>Bestand</span></label>
-        <label><input type="radio" name="objektart" value="sanierung"><span>Sanierung</span></label>
+        <label><input type="radio" name="objektart" value="sanierung"><span>Saniert bzw. in Sanierung</span></label>
         <label><input type="radio" name="objektart" value="neubau"><span>Neubau</span></label>
         <label><input type="radio" name="objektart" value="denkmal"><span>Denkmal</span></label>
       </div>
     </div>
-    <div class="reihe r2">
-      <div class="feld"><label for="einheiten_gesamt">Wohnungen im Projekt</label><input type="number" id="einheiten_gesamt" name="einheiten_gesamt" min="1" inputmode="numeric" required></div>
-      <div class="feld"><label for="einheiten_vertrieb">Davon für unseren Vertrieb</label><input type="number" id="einheiten_vertrieb" name="einheiten_vertrieb" min="1" inputmode="numeric"></div>
+    <div class="feld"><label for="aufgeteilt">In Eigentumswohnungen aufgeteilt?</label>
+      <select id="aufgeteilt" name="aufgeteilt"><option value="ja">Ja, Teilungserklärung liegt vor</option><option value="geplant">Aufteilung geplant bzw. läuft</option><option value="nein">Nein</option></select>
+    </div>
+    <div class="reihe r3">
+      <div class="feld"><label for="einheiten_gesamt">Wohnungen insgesamt</label><input type="number" id="einheiten_gesamt" name="einheiten_gesamt" min="1" inputmode="numeric" required></div>
+      <div class="feld"><label for="einheiten_vertrieb">Davon für unseren Vertrieb</label><input type="number" id="einheiten_vertrieb" name="einheiten_vertrieb" min="1" inputmode="numeric" required></div>
+      <div class="feld"><label for="gebaeude">Anzahl Häuser <span class="opt">(optional)</span></label><input type="number" id="gebaeude" name="gebaeude" min="1" inputmode="numeric"></div>
     </div>
     <div class="reihe r2">
-      <div class="feld"><label for="baujahr">Baujahr bzw. Fertigstellung</label><input type="number" id="baujahr" name="baujahr" min="1800" max="2035" inputmode="numeric" required></div>
+      <div class="feld"><label for="flaeche_von">Wohnflächen von <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="flaeche_von" name="flaeche_von" min="5" inputmode="decimal"><b>m²</b></div></div>
+      <div class="feld"><label for="flaeche_bis">bis <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="flaeche_bis" name="flaeche_bis" min="5" inputmode="decimal"><b>m²</b></div></div>
+    </div>
+    <div class="reihe r2">
+      <div class="feld"><label for="preis_von">Abgabepreise von</label><div class="einheit"><input type="number" id="preis_von" name="preis_von" step="1000" min="10000" inputmode="numeric"><b>€</b></div></div>
+      <div class="feld"><label for="preis_bis">bis</label><div class="einheit"><input type="number" id="preis_bis" name="preis_bis" step="1000" min="10000" inputmode="numeric"><b>€</b></div></div>
+    </div>
+    <div class="reihe r2">
+      <div class="feld"><label for="vermietungsquote">Davon vermietet <span class="opt">(optional)</span></label><div class="einheit"><input type="number" id="vermietungsquote" name="vermietungsquote" min="0" max="100" inputmode="numeric"><b>%</b></div></div>
+      <div class="feld"><label for="stellplaetze">Stellplätze bzw. Garagen <span class="opt">(optional)</span></label><input type="number" id="stellplaetze" name="stellplaetze" min="0" inputmode="numeric"></div>
+    </div>
+    <div class="reihe r3">
+      <div class="feld"><label for="baujahr">Baujahr</label><input type="number" id="baujahr" name="baujahr" min="1800" max="2035" inputmode="numeric" required></div>
       <div class="feld"><label for="sanierungsjahr">Letzte Sanierung <span class="opt">(optional)</span></label><input type="number" id="sanierungsjahr" name="sanierungsjahr" min="1900" max="2035" inputmode="numeric"></div>
+      <div class="feld"><label for="fertigstellung">Fertigstellung <span class="opt">(bei Bau)</span></label><input type="text" id="fertigstellung" name="fertigstellung" placeholder="z. B. Q3 2027"></div>
     </div>
     <div class="feld"><label for="start">Ab wann kann der Vertrieb starten?</label>
       <select id="start" name="start"><option value="sofort">Sofort</option><option value="1-3 Monate">In 1 bis 3 Monaten</option><option value="spaeter">Später als 3 Monate</option></select>
     </div>
+    <div class="feld">
+      <span class="frage" id="vertrieb-l">Wird das Projekt schon vertrieben?</span>
+      <div class="wahl" role="radiogroup" aria-labelledby="vertrieb-l">
+        <label><input type="radio" name="bisher_vertrieb" value="nein"><span>Nein, neu am Markt</span></label>
+        <label><input type="radio" name="bisher_vertrieb" value="eigen"><span>Ja, über eigene Kanäle</span></label>
+        <label><input type="radio" name="bisher_vertrieb" value="extern"><span>Ja, auch über andere Vertriebe</span></label>
+      </div>
+    </div>
+    <div class="feld"><label for="projektbeschreibung">Kurzbeschreibung des Projekts <span class="opt">(optional)</span></label><textarea id="projektbeschreibung" name="projektbeschreibung" placeholder="z. B. Lage, Mikrolage, Zielgruppe der Mieter, Besonderheiten, weitere Adressen"></textarea></div>
+
   </fieldset>
 
   <fieldset>
-    <legend><span class="nr">2</span>Die Beispielwohnung</legend>
+    <legend><span class="nr">3</span>Die Beispielwohnung</legend>
     <p class="erkl">Am besten eine Wohnung, die typisch für das Projekt ist, bei Größe und Preis.</p>
     <div class="reihe r3">
       <div class="feld"><label for="we">Wohnungsnummer</label><input type="text" id="we" name="we" placeholder="z. B. WE 4"></div>
@@ -194,7 +237,7 @@ button:focus-visible{outline:3px solid var(--blau);outline-offset:3px}
   </fieldset>
 
   <fieldset>
-    <legend><span class="nr">3</span>Abschreibung, Förderung und Garantien</legend>
+    <legend><span class="nr">4</span>Abschreibung, Förderung und Garantien</legend>
     <p class="erkl">Für Kapitalanleger oft das stärkste Verkaufsargument. Was Sie nicht wissen, lassen Sie leer, dann rechnen wir mit Standardwerten.</p>
     <div class="feld"><label for="afa_art">Abschreibung (AfA)</label>
       <select id="afa_art" name="afa_art">
